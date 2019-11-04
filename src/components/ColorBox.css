@@ -6,4 +6,57 @@
   display: inline-block;
   position: relative;
   cursor: pointer;
+  text-transform: uppercase;
+  margin-bottom: -5px;
+}
+
+.copy-btn {
+  opacity: 0%;
+  display: inline-block;
+  color: white;
+  border-radius: 2px;
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -15px;
+  text-align: center;
+  outline: none;
+  background-color: rgba(255,255,255, 0.3);
+  border: none;
+  font-size: 1rem;
+  line-height: 30px;
+  cursor: pointer;
+  transition: 0.4s opacity;
+}
+
+.ColorBox:hover .copy-btn {
+  opacity: 100%;
+}
+
+.box-content {
+  position: absolute;
+  padding: 10px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  color: black;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+
+.see-more {
+  position: absolute;
+  background-color: rgba(255,255,255, 0.3);
+  border: none;
+  right: 0;
+  bottom: 0;
+  color: white;
+  width: 60px;
+  height: 30px;
+  font-size: 0.8rem;
+  line-height: 30px;
+  text-align: center;
 }

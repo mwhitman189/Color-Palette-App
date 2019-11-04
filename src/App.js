@@ -3,6 +3,7 @@ import Palette from './components/Palette'
 import seedColors from './seedColors.js'
 import './App.css'
 
+
 function App() {
   return (
     <div className="App">

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ColorBox from './ColorBox'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import uuid from 'uuid/v4'
 import './Palette.css'
 
 
@@ -15,7 +16,7 @@ class Palette extends Component {
 
   render() {
     const colorBoxes = this.props.colors.map(color =>
-      <ColorBox background={color} />
+      <ColorBox key={uuid()} background={color} />
     )
 
     return (
