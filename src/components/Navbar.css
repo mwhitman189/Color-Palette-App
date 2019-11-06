@@ -6,13 +6,63 @@
 .lightness-container {
   display: flex;
   flex-flow: column;
-  width: 15em;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 0.5rem;
   margin: 0;
 }
 
 .lightness-container label {
   font-size: 0.9rem;
+}
+
+.slider {
+  width: 15%;
+  max-width: 350px;
+  display: inline-block;
+}
+
+.slider .rc-slider-track {
+  background-color: transparent;
+}
+
+.slider .rc-slider-handle {
+  position: relative;
+  top: 2px;
+  outline: none;
+  border: none;
+  background-color:#44bd32;
+  box-shadow: none;
+}
+
+.slider .rc-slider-handle:focus {
+  position: relative;
+  top: 2px;
+  outline: none;
+  border: none;
+  background-color:#44bd32;
+  box-shadow: none;
+}
+
+.slider .rc-slider-handle:active {
+  position: relative;
+  top: 2px;
+  outline: none;
+  border: none;
+  background-color:#44bd32;
+  box-shadow: none;
+}
+
+.slider .rc-slider-handle:hover {
+  position: relative;
+  top: 2px;
+  outline: none;
+  border: none;
+  background-color:#44bd32;
+  box-shadow: none;
+}
+
+.slider .rc-slider-rail {
+  background-color: #dcdde1;
+  height: 8px;
 }

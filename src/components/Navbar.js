@@ -25,14 +25,16 @@ class Navbar extends Component {
       <div className="Navbar">
         <div className="lightness-container">
           <label htmlFor="lumi-slider">Lightness</label>
-          <Slider
-            onChange={this.handleChange}
-            value={lightness}
-            min={100}
-            max={900}
-            step={100}
-            defaultValue={level}
-          />
+          <div className="slider">
+            <Slider
+              onChange={this.handleChange}
+              value={lightness}
+              min={100}
+              max={900}
+              step={100}
+              defaultValue={level}
+            />
+          </div>
         </div>
       </div>
     )
