@@ -8,7 +8,7 @@ class Navbar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      level: this.props.luminosity,
+      level: this.props.lightness,
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -18,18 +18,19 @@ class Navbar extends Component {
   }
 
   render() {
+    const { level } = this.state
+    const { lightness } = this.props
     return (
       <div className="Navbar">
-        <div className="luminosity-container">
-          <label htmlFor="lumi-slider">Luminosity</label>
+        <div className="lightness-container">
+          <label htmlFor="lumi-slider">Lightness</label>
           <Slider
             onChange={this.handleChange}
-            // onAfterChange={this.handleChange}
-            value={this.props.luminosity}
+            value={lightness}
             min={100}
             max={900}
             step={100}
-            defaultValue={this.state.level}
+            defaultValue={level}
           />
         </div>
       </div>

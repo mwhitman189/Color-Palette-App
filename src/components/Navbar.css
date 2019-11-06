@@ -1,15 +1,18 @@
 .Navbar {
-  height: 15%;
+  height: 10%;
   padding: 0;
 }
 
-.luminosity-container {
+.lightness-container {
   display: flex;
   flex-flow: column;
   width: 15em;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 0;
 }
 
-.Navbar li {
-  display: inline-block;
-  font-size: 0.7rem;
+.lightness-container label {
+  font-size: 0.9rem;
 }
