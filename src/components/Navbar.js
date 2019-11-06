@@ -14,12 +14,13 @@ class Navbar extends Component {
   }
 
   handleChange(level) {
-    this.props.changeLuminosity(level)
+    this.props.changeLightness(level)
   }
 
   render() {
-    const { level } = this.state
     const { lightness } = this.props
+    const { level } = this.state
+
     return (
       <div className="Navbar">
         <div className="lightness-container">
