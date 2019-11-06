@@ -11,7 +11,7 @@
 }
 
 .copy-btn {
-  opacity: 0%;
+  opacity: 0;
   display: inline-block;
   color: white;
   border-radius: 2px;
@@ -33,7 +33,7 @@
 }
 
 .ColorBox:hover .copy-btn {
-  opacity: 100%;
+  opacity: 1;
 }
 
 .box-content {

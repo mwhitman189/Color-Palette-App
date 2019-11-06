@@ -17,8 +17,8 @@ class Palette extends Component {
     this.changeLuminosity = this.changeLuminosity.bind(this)
   }
 
-  changeLuminosity(value) {
-    this.setState({ luminosity: value })
+  changeLuminosity(level) {
+    this.setState({ luminosity: level })
   }
 
   render() {
@@ -28,7 +28,7 @@ class Palette extends Component {
 
     return (
       <div className="Palette">
-        <Navbar changeLuminosity={this.changeLuminosity} />
+        <Navbar changeLuminosity={this.changeLuminosity} luminosity={this.state.luminosity} />
         <div className="Palette-colors">
           {colorBoxes}
         </div>
