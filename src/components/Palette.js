@@ -10,18 +10,25 @@ class Palette extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      valueType: "hex",
+      luminosity: "400",
       is_loading: true,
     }
+    this.changeLuminosity = this.changeLuminosity.bind(this)
+  }
+
+  changeLuminosity(value) {
+    this.setState({ luminosity: value })
   }
 
   render() {
-    const colorBoxes = this.props.colors.map(color =>
-      <ColorBox key={uuid()} background={color} />
+    const colorBoxes = this.props.palette.colors[ this.state.luminosity ].map(color =>
+      <ColorBox key={uuid()} background={color} valueType={this.state.valueType} />
     )
 
     return (
       <div className="Palette">
-        <Navbar />
+        <Navbar changeLuminosity={this.changeLuminosity} />
         <div className="Palette-colors">
           {colorBoxes}
         </div>
