@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import './Navbar.css'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import './Navbar.css'
 
 
 class Navbar extends Component {
@@ -22,9 +22,16 @@ class Navbar extends Component {
     const { level } = this.state
 
     return (
-      <div className="Navbar">
+      <header className="Navbar">
+        <div className="logo">
+          {/* eslint-disable-next-line */}
+          <a href="#">
+            <span className="title">Palette Maker</span>
+            <span className="sub-title">3000</span>
+          </a>
+        </div>
         <div className="lightness-container">
-          <label htmlFor="lumi-slider">Lightness</label>
+          <label htmlFor="lumi-slider">Lightness: {lightness}</label>
           <div className="slider">
             <Slider
               onChange={this.handleChange}
@@ -36,7 +43,7 @@ class Navbar extends Component {
             />
           </div>
         </div>
-      </div>
+      </header>
     )
   }
 }
