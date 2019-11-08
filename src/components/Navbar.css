@@ -1,7 +1,14 @@
 .Navbar {
   display: flex;
+  justify-content: space-between;
   height: 10%;
   padding: 0;
+}
+
+.left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .lightness-container {
@@ -19,10 +26,11 @@ a {
 }
 
 .logo {
+  border-radius: 15px;
   background-color: #dcdde1;
-  margin: 0 30px 0 0;
+  margin: .2rem .5rem .2rem .2rem;
   width: 150px;
-  padding: 0 0 10px 10px;
+  padding: 0.3rem 0 .3rem 1rem;
 }
 
 .title {
@@ -54,42 +62,71 @@ a {
 }
 
 .rc-slider-handle {
+  background: linear-gradient(90deg, #182848 0%, #4b6cb7 100%);
   position: relative;
-  top: 2px;
+  width: 20px;
+  height: 20px;
   outline: none;
   border: none;
-  background-color:#44bd32;
   box-shadow: none;
 }
 
 .rc-slider-handle:focus {
+  background: linear-gradient(90deg, #182848 0%, #4b6cb7 100%);
   position: relative;
-  top: 2px;
   outline: none;
   border: none;
-  background-color:#44bd32;
   box-shadow: none;
 }
 
 .rc-slider-handle:active {
+  background: linear-gradient(90deg, #182848 0%, #00a2ff 100%);
   position: relative;
-  top: 2px;
   outline: none;
   border: none;
-  background-color:#44bd32;
   box-shadow: none;
 }
 
 .slider .rc-slider-handle:hover {
+  background: linear-gradient(90deg, #182848 0%, #00a2ff 100%);
   position: relative;
-  top: 2px;
   outline: none;
   border: none;
-  background-color:#44bd32;
   box-shadow: none;
 }
 
 .rc-slider-rail {
   background-color: #dcdde1;
   height: 8px;
+}
+
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-container {
+  background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
+  border-radius: 10px;
+  margin: 0 10px;
+  padding: 0 0.5rem;
+}
+
+.select-container div {
+  color: #fff;
+}
+
+#message-id {
+  text-transform: uppercase;
+}
+
+.bold {
+  font-size: 1.2rem;
+  padding: .2rem;
+  color: #00d2ff;
+  background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
 }
