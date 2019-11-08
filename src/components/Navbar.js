@@ -11,18 +11,19 @@ class Navbar extends Component {
     super(props)
     this.state = {
       level: this.props.level,
-      format: this.props.format,
+      format: "hex",
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleFormat = this.handleFormat.bind(this)
   }
 
-  handleChange(val) {
-    this.setState({ format: val })
-    this.props.changeLevel(val)
+  handleFormat(evt) {
+    this.setState({ format: evt.target.value })
+    this.props.changeFormat(evt.target.value)
   }
 
   render() {
-    const { format, level } = this.props
+    const { level, changeLevel } = this.props
+    const { format } = this.state
 
     return (
       <header className="Navbar">
@@ -37,7 +38,7 @@ class Navbar extends Component {
           <label htmlFor="lumi-slider">Level: {level}</label>
           <div className="slider">
             <Slider
-              onChange={this.handleChange}
+              onChange={changeLevel}
               value={level}
               min={100}
               max={900}
@@ -47,7 +48,7 @@ class Navbar extends Component {
           </div>
         </div>
         <div className="select-container">
-          <Select value={format} onChange={this.handleChange}>
+          <Select value={format} onChange={this.handleFormat}>
             <MenuItem value="hex">HEX -- #000</MenuItem>
             <MenuItem value="rgb">RGB -- (0,0,0)</MenuItem>
             <MenuItem value="rgba">RGBA -- (0,0,0, 0.5)</MenuItem>

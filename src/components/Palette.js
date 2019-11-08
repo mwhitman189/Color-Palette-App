@@ -18,12 +18,12 @@ class Palette extends Component {
     this.changeLevel = this.changeLevel.bind(this)
   }
 
-  changeFormat(format) {
-    this.setState({ format: format })
+  changeLevel(level) {
+    this.setState({ level })
   }
 
-  changeLevel(level) {
-    this.setState({ level: level })
+  changeFormat(val) {
+    this.setState({ format: val })
   }
 
   render() {
