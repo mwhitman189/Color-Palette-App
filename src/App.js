@@ -5,6 +5,7 @@ import PaletteList from './components/PaletteList'
 import seedColors from './seedColors.js'
 import './App.css'
 import { generatePalette } from './colorHelpers'
+import SingleHuePalette from './components/SingleHuePalette'
 
 
 class App extends Component {
@@ -31,6 +32,11 @@ class App extends Component {
             )}
             />
           )}
+        />
+        <Route
+          exact
+          to="/palette/:paletteId/:colorId"
+          render={() => <SingleHuePalette />}
         />
       </Switch>
     )
