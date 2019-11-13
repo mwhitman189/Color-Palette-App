@@ -29,7 +29,7 @@ class Palette extends Component {
   render() {
     const { colors, id } = this.props.palette
     const { format, level } = this.state
-    console.log(colors)
+    console.log(id)
 
     const colorBoxes = colors[ level ].map(color =>
       <ColorBox
