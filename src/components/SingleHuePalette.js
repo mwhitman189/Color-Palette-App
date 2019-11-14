@@ -26,7 +26,7 @@ class SingleHuePalette extends Component {
         allColors[ key ].filter(color => color.id === colorToFilterBy)
       )
     }
-    return shades.slice(0, -1)
+    return shades.slice(1)
   }
 
   render() {
