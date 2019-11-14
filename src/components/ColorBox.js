@@ -20,7 +20,7 @@ class ColorBox extends Component {
   }
 
   render() {
-    const { background, name, paletteId, id, showLink, isMainPalette } = this.props
+    const { background, name, paletteId, id, showLink } = this.props
     const { is_showing } = this.state
 
     return (

@@ -27,7 +27,6 @@ class Palette extends Component {
   }
 
   render() {
-    const { classes } = this.props
     const { colors, id } = this.props.palette
     const { format, level } = this.state
 

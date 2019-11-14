@@ -1,16 +1,33 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopyright } from '@fortawesome/free-solid-svg-icons'
-import './Footer.css'
+import { withStyles } from '@material-ui/styles'
 
 
-class Footer extends Component {
-  render() {
-    return (
-      <div className="Footer">
-        <p>Miles Whitman <FontAwesomeIcon icon={faCopyright} /> 2019</p>
-      </div>
-    )
+const styles = {
+  root: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: '4%',
+  },
+  text: {
+    margin: '0 1em',
+  },
+  colorName: {
+    fontWeight: '900',
   }
 }
-export default Footer
+
+function Footer(props) {
+  const { paletteName } = props
+  const { classes } = props
+
+  return (
+    <div className={classes.root}>
+      <p className={`${classes.text} ${classes.colorName}`}>{paletteName}</p>
+      <p className={classes.text}>Miles Whitman <FontAwesomeIcon icon={faCopyright} /> 2019</p>
+    </div>
+  )
+}
+export default withStyles(styles)(Footer)
