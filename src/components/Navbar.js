@@ -41,7 +41,7 @@ class Navbar extends Component {
             <span className="title">Palette Maker</span>
             <span className="sub-title">3000</span>
           </Link>
-          <div className="lightness-container">
+          {changeLevel && (<div className="lightness-container">
             <label htmlFor="lumi-slider">Level: {level}</label>
             <div className="slider">
               <Slider
@@ -54,6 +54,7 @@ class Navbar extends Component {
               />
             </div>
           </div>
+          )}
         </div>
         <div className="right">
           <div className="select-container">

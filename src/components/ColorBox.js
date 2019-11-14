@@ -20,7 +20,7 @@ class ColorBox extends Component {
   }
 
   render() {
-    const { background, name, paletteId, id } = this.props
+    const { background, name, paletteId, id, showLink, isMainPalette } = this.props
     const { is_showing } = this.state
 
     return (
@@ -36,9 +36,11 @@ class ColorBox extends Component {
               <span>{name}</span>
             </div>
             <button className="copy-btn">Copy</button>
-            <Link to={`/palette/${paletteId}/${id}`} onClick={e => e.stopPropagation}>
-              <span className="see-more">MORE</span>
-            </Link>
+            {showLink && (
+              <Link to={`/palette/${paletteId}/${id}`} onClick={e => e.stopPropagation}>
+                <span className="see-more">MORE</span>
+              </Link>
+            )}
           </div>
         </div>
       </CopyToClipboard>
