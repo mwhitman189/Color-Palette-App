@@ -10,13 +10,8 @@ const styles = {
   root: {
 
   },
-  lightText: {
-    color: '#fff',
-  },
-  darkText: {
-    color: '#353b48',
-  },
   seeMore: {
+    color: props => chroma(props.background).luminance() > 0.4 ? '#353b48' : '#eeeeee',
     position: 'absolute',
     backgroundColor: 'rgba(255,255,255, 0.3)',
     border: 'none',
@@ -30,6 +25,7 @@ const styles = {
     textAlign: 'center',
   },
   copyBtn: {
+    color: props => chroma(props.background).luminance() > 0.3 ? '#353b48' : '#eeeeee',
     opacity: '0',
     display: 'inline-block',
     borderRadius: '2px',
@@ -52,7 +48,11 @@ const styles = {
       opacity: '1',
     }
   },
+  colorName: {
+    color: props => chroma(props.background).luminance() > 0.3 ? '#353b48' : '#eeeeee',
+  },
   backBtn: {
+    color: props => chroma(props.background).luminance() > 0.3 ? '#353b48' : '#eeeeee',
     display: 'inline-block',
     borderRadius: '2px',
     width: '100px',
@@ -120,12 +120,12 @@ class ColorBox extends Component {
           </div>
           <div className="copy-container">
             <div className="box-content">
-              <span className={textColor}>{name}</span>
+              <span className={classes.colorName}>{name}</span>
             </div>
-            <button className={`${classes.copyBtn} ${textColor}`}>Copy</button>
+            <button className={`${classes.copyBtn}`}>Copy</button>
             {showLink && (
               <Link to={`/palette/${paletteId}/${id}`} onClick={e => e.stopPropagation}>
-                <span className={`${classes.seeMore} ${textColor}`}>MORE</span>
+                <span className={`${classes.seeMore}`}>MORE</span>
               </Link>
             )}
           </div>
