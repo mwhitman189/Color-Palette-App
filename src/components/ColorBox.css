@@ -10,8 +10,16 @@
   margin-bottom: -5px;
 }
 
-.copy-btn {
-  opacity: 0;
+.SingleColorPalette .ColorBox {
+  height: 50%;
+}
+
+.ColorBox.go-back {
+  background-color: black;
+}
+
+.copy-btn,
+.back-btn {
   display: inline-block;
   color: white;
   border-radius: 2px;
@@ -32,7 +40,12 @@
   transition: 0.4s opacity;
 }
 
-.ColorBox:hover .copy-btn {
+.copy-btn {
+  opacity: 0;
+}
+
+.ColorBox:hover .copy-btn,
+.back-btn {
   opacity: 1;
 }
 
