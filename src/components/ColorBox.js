@@ -2,7 +2,75 @@ import React, { Component } from 'react'
 import './ColorBox.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom'
+import { withStyles } from '@material-ui/styles'
 
+
+const styles = {
+  root: {
+
+  },
+  lightText: {
+    color: '#fff',
+  },
+  darkText: {
+    color: '#353b48',
+  },
+  seeMore: {
+    position: 'absolute',
+    backgroundColor: 'rgba(255,255,255, 0.3)',
+    border: 'none',
+    borderRadius: '8px 0',
+    right: 0,
+    bottom: 0,
+    width: '60px',
+    height: '30px',
+    fontSize: '0.8rem',
+    lineHeight: '30px',
+    textAlign: 'center',
+  },
+  copyBtn: {
+    opacity: '0',
+    display: 'inline-block',
+    borderRadius: '2px',
+    width: '100px',
+    height: '30px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginLeft: '-50px',
+    marginTop: '-15px',
+    textAlign: 'center',
+    outline: 'none',
+    backgroundColor: 'rgba(255,255,255, 0.3)',
+    border: 'none',
+    fontSize: '1rem',
+    lineHeight: '30px',
+    cursor: 'pointer',
+    transition: '0.4s opacity',
+    '&:hover': {
+      opacity: '1',
+    }
+  },
+  backBtn: {
+    display: 'inline-block',
+    borderRadius: '2px',
+    width: '100px',
+    height: '30px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginLeft: '-50px',
+    marginTop: '-15px',
+    textAlign: 'center',
+    outline: 'none',
+    backgroundColor: 'rgba(255,255,255, 0.3)',
+    border: 'none',
+    fontSize: '1rem',
+    lineHeight: '30px',
+    cursor: 'pointer',
+    transition: '0.4s opacity',
+  },
+}
 
 class ColorBox extends Component {
   constructor(props) {
@@ -20,25 +88,43 @@ class ColorBox extends Component {
   }
 
   render() {
-    const { background, name, paletteId, id, showLink } = this.props
+    const {
+      classes,
+      background,
+      name,
+      paletteId,
+      id,
+      showLink,
+      luminance
+    } = this.props
     const { is_showing } = this.state
+
+    let textColor
+    if (luminance > 0.4) {
+      textColor = classes.darkText
+    } else {
+      textColor = classes.lightText
+    }
 
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
         <div className="ColorBox" style={{ backgroundColor: background }}>
-          <div className={`copy-overlay ${is_showing && "show"}`} style={{ backgroundColor: background }} />
+          <div
+            className={`copy-overlay ${is_showing && "show"}`}
+            style={{ backgroundColor: background }}
+          />
           <div className={`copy-msg ${is_showing && "show"}`}>
-            <h2>Copied!</h2>
+            <h2 className={textColor}>Copied!</h2>
             <p>{background}</p>
           </div>
           <div className="copy-container">
             <div className="box-content">
-              <span>{name}</span>
+              <span className={textColor}>{name}</span>
             </div>
-            <button className="copy-btn">Copy</button>
+            <button className={`${classes.copyBtn} ${textColor}`}>Copy</button>
             {showLink && (
               <Link to={`/palette/${paletteId}/${id}`} onClick={e => e.stopPropagation}>
-                <span className="see-more">MORE</span>
+                <span className={`${classes.seeMore} ${textColor}`}>MORE</span>
               </Link>
             )}
           </div>
@@ -47,4 +133,4 @@ class ColorBox extends Component {
     )
   }
 }
-export default ColorBox
+export default withStyles(styles)(ColorBox)

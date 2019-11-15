@@ -4,6 +4,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import uuid from 'uuid/v4'
 import './Palette.css'
+import chroma from 'chroma-js'
 
 
 class Palette extends Component {
@@ -30,17 +31,21 @@ class Palette extends Component {
     const { colors, id } = this.props.palette
     const { format, level } = this.state
 
-    const colorBoxes = colors[ level ].map(color =>
-      <ColorBox
-        key={uuid()}
-        background={color[ format ]}
-        name={color.name}
-        id={color.id}
-        paletteId={id}
-        showLink={true}
-        isMainPalette={true}
-      />
-    )
+    const colorBoxes = colors[ level ].map(color => {
+      const luminance = chroma(color[ format ]).luminance()
+      return (
+        <ColorBox
+          key={uuid()}
+          background={color[ format ]}
+          name={color.name}
+          id={color.id}
+          paletteId={id}
+          showLink={true}
+          isMainPalette={true}
+          luminance={luminance}
+        />
+      )
+    })
 
     return (
       <div className="Palette">
