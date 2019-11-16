@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ColorBox from './ColorBox'
 import Navbar from './Navbar'
 import Footer from './Footer'
-import { Link } from 'react-router-dom'
 
 
 class SingleHuePalette extends Component {
@@ -36,25 +35,29 @@ class SingleHuePalette extends Component {
     const shadeBoxes = this._shades.map(shade =>
       <ColorBox
         key={shade.name}
+        id={id}
         name={shade.name}
         background={shade[ format ]}
         showLink={false}
+        is_singleHue
       />
     )
 
     return (
-      <div className="SingleColorPalette Palette">
+      <div className="Palette">
         <Navbar
           changeLevel={false}
           changeFormat={this.changeFormat}
         />
         <div className="Palette-colors">
           {shadeBoxes}
-          <div className="ColorBox go-back">
-            <Link to={`/palette/${id}`} className="back-btn">
-              Go Back
-            </Link>
-          </div>
+          <ColorBox
+            background="#000"
+            id={id}
+            is_backBtn
+            is_singleHue
+          >
+          </ColorBox>
         </div>
         <Footer paletteName={this.props.colorId} />
       </div>

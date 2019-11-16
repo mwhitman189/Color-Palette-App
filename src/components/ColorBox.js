@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './ColorBox.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/styles'
@@ -7,11 +6,12 @@ import chroma from 'chroma-js'
 
 
 const styles = {
-  root: {
+  ColorBox: {
     color: props =>
       chroma(props.background).luminance() > 0.3 ? '#353b48' : '#eeeeee',
     width: '20%',
-    height: '25%',
+    height: props =>
+      props.is_singleHue ? '50%' : '25%',
     margin: '0 auto',
     padding: 0,
     display: 'inline-block',
@@ -63,26 +63,6 @@ const styles = {
     lineHeight: '30px',
     cursor: 'pointer',
     transition: '0.4s opacity',
-  },
-  backBtn: {
-    display: 'inline-block',
-    borderRadius: '2px',
-    width: '100px',
-    height: '30px',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginLeft: '-50px',
-    marginTop: '-15px',
-    textAlign: 'center',
-    outline: 'none',
-    backgroundColor: 'rgba(255,255,255, 0.3)',
-    border: 'none',
-    fontSize: '1rem',
-    lineHeight: '30px',
-    cursor: 'pointer',
-    transition: '0.4s opacity',
-    opacity: 0,
   },
   copyOverlay: {
     opacity: 0,
@@ -141,7 +121,32 @@ const styles = {
     bottom: 0,
     fontSize: '0.7rem',
     letterSpacing: '1px',
-  }
+  },
+  backBtn: {
+    color: props =>
+      chroma(props.background).luminance() > 0.3 ? '#353b48' : '#eeeeee',
+    display: 'inline-block',
+    borderRadius: '2px',
+    width: '100px',
+    height: '30px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginLeft: '-50px',
+    marginTop: '-15px',
+    textAlign: 'center',
+    outline: 'none',
+    backgroundColor: 'rgba(255,255,255, 0.2)',
+    border: 'none',
+    fontSize: '1rem',
+    lineHeight: '30px',
+    cursor: 'pointer',
+    transition: '0.4s opacity',
+    opacity: 1,
+    '&:hover': {
+      backgroundColor: 'rgba(255,255,255, 0.3)'
+    }
+  },
 }
 
 class ColorBox extends Component {
@@ -167,25 +172,37 @@ class ColorBox extends Component {
       paletteId,
       id,
       showLink,
+      is_backBtn
     } = this.props
     const { is_showing } = this.state
 
+    let linkBtn
+    if (is_backBtn) {
+      linkBtn = <Link to={`/palette/${id}`} className={classes.backBtn}>Go Back</Link>
+    } else {
+      linkBtn = <button className={`${classes.copyBtn}`}>Copy</button>
+    }
+
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
-        <div className={`${classes.root}`} style={{ backgroundColor: background }}>
-          <div
-            className={`${classes.copyOverlay} ${is_showing && 'show'}`}
-            style={{ backgroundColor: background }}
-          />
-          <div className={`${classes.copyMsg} ${is_showing && 'show'}`}>
-            <h2>Copied!</h2>
-            <p>{background}</p>
-          </div>
+        <div className={`${classes.ColorBox}`} style={{ backgroundColor: background }}>
+          {!is_backBtn && (
+            <>
+              <div
+                className={`${classes.copyOverlay} ${is_showing && 'show'}`}
+                style={{ backgroundColor: background }}
+              />
+              <div className={`${classes.copyMsg} ${is_showing && 'show'}`}>
+                <h2>Copied!</h2>
+                <p>{background}</p>
+              </div>
+            </>
+          )}
           <div>
             <div className={classes.boxContent}>
               <span>{name}</span>
             </div>
-            <button className={`${classes.copyBtn}`}>Copy</button>
+            {linkBtn}
             {showLink && (
               <Link to={`/palette/${paletteId}/${id}`} onClick={e => e.stopPropagation}>
                 <span className={`${classes.seeMore}`}>MORE</span>

@@ -40,6 +40,7 @@ class PaletteList extends Component {
   goToPalette(id) {
     this.props.history.push(`/palette/${id}`)
   }
+
   render() {
     const { palettes, classes } = this.props
     return (
