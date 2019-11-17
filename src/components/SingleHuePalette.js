@@ -2,6 +2,19 @@ import React, { Component } from 'react'
 import ColorBox from './ColorBox'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { withStyles } from '@material-ui/styles'
+
+
+const styles = {
+  Palette: {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  colors: {
+    height: '85%',
+  }
+}
 
 
 class SingleHuePalette extends Component {
@@ -31,11 +44,11 @@ class SingleHuePalette extends Component {
 
   render() {
     const { format } = this.state
-    const { id } = this.props.palette
+    const { classes, palette } = this.props
     const shadeBoxes = this._shades.map(shade =>
       <ColorBox
         key={shade.name}
-        id={id}
+        id={palette.id}
         name={shade.name}
         background={shade[ format ]}
         showLink={false}
@@ -44,16 +57,16 @@ class SingleHuePalette extends Component {
     )
 
     return (
-      <div className="Palette">
+      <div className={classes.Palette}>
         <Navbar
           changeLevel={false}
           changeFormat={this.changeFormat}
         />
-        <div className="Palette-colors">
+        <div className={classes.colors}>
           {shadeBoxes}
           <ColorBox
             background="#000"
-            id={id}
+            id={palette.id}
             is_backBtn
             is_singleHue
           >
@@ -64,4 +77,4 @@ class SingleHuePalette extends Component {
     )
   }
 }
-export default SingleHuePalette
+export default withStyles(styles)(SingleHuePalette)
