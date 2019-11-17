@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import ColorBox from './ColorBox'
-import Navbar from './Navbar'
-import Footer from './Footer'
 import uuid from 'uuid/v4'
+import Navbar from './Navbar'
+import ColorBox from './ColorBox'
+import Footer from './Footer'
 import { withStyles } from '@material-ui/styles'
 import styles from '../styles/PaletteStyles'
 

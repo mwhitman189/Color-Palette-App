@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import Slider from 'rc-slider'
+import { Link } from 'react-router-dom'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import { Link } from 'react-router-dom'
+import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
-import './Navbar.css'
+import { withStyles } from '@material-ui/styles'
+import styles from '../styles/NavbarStyles'
 
 
 class Navbar extends Component {
@@ -31,19 +32,19 @@ class Navbar extends Component {
   }
 
   render() {
-    const { level, changeLevel } = this.props
+    const { classes, level, changeLevel } = this.props
     const { format } = this.state
 
     return (
-      <header className="Navbar">
-        <div className="left">
-          <Link to="/" className="logo">
-            <span className="title">Palette Maker</span>
-            <span className="sub-title">3000</span>
+      <header className={classes.Navbar}>
+        <div className={classes.left}>
+          <Link to="/" className={classes.logo}>
+            <span className={classes.title}>Palette Maker</span>
+            <span className={classes.subTitle}>3000</span>
           </Link>
-          {changeLevel && (<div className="lightness-container">
+          {changeLevel && (<div className={classes.lightnessContainer}>
             <label htmlFor="lumi-slider">Level: {level}</label>
-            <div className="slider">
+            <div className={classes.slider}>
               <Slider
                 onChange={changeLevel}
                 value={level}
@@ -56,12 +57,12 @@ class Navbar extends Component {
           </div>
           )}
         </div>
-        <div className="right">
-          <div className="select-container">
+        <div className={classes.right}>
+          <div className={classes.selectContainer}>
             <Select value={format} onChange={this.handleFormat}>
-              <MenuItem value="hex">HEX -- #000</MenuItem>
-              <MenuItem value="rgb">RGB -- (0,0,0)</MenuItem>
-              <MenuItem value="rgba">RGBA -- (0,0,0, 0.5)</MenuItem>
+              <MenuItem value="hex">hex - #000</MenuItem>
+              <MenuItem value="rgb">rgb - (0,0,0)</MenuItem>
+              <MenuItem value="rgba">rgba - (0,0,0, 0.5)</MenuItem>
             </Select>
           </div>
         </div>
@@ -69,7 +70,7 @@ class Navbar extends Component {
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={this.state.open}
           autoHideDuration={3000}
-          message={<span id="message-id">Format Changed To <span className="bold">{format}</span></span>}
+          message={<span id={classes.messageId}>Format Changed To <span className={classes.bold}>{format}</span></span>}
           ContentProps={{ "aria-describedby": "message-id" }}
           onClose={this.closeSnackbar}
           action={[
@@ -87,4 +88,4 @@ class Navbar extends Component {
     )
   }
 }
-export default Navbar
+export default withStyles(styles)(Navbar)
