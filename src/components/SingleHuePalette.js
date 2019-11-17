@@ -3,18 +3,7 @@ import ColorBox from './ColorBox'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import { withStyles } from '@material-ui/styles'
-
-
-const styles = {
-  Palette: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  colors: {
-    height: '85%',
-  }
-}
+import styles from '../styles/PaletteStyles'
 
 
 class SingleHuePalette extends Component {

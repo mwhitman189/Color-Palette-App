@@ -2,22 +2,8 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopyright } from '@fortawesome/free-solid-svg-icons'
 import { withStyles } from '@material-ui/styles'
+import styles from '../styles/FooterStyles'
 
-
-const styles = {
-  root: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: '4%',
-  },
-  text: {
-    margin: '0 1em',
-  },
-  colorName: {
-    fontWeight: '900',
-  }
-}
 
 function Footer(props) {
   const { paletteName } = props
