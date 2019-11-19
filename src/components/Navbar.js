@@ -1,39 +1,38 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-import Snackbar from '@material-ui/core/Snackbar';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import Slider from 'rc-slider'
-import 'rc-slider/assets/index.css'
-import { withStyles } from '@material-ui/styles'
-import styles from '../styles/NavbarStyles'
-
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import Snackbar from "@material-ui/core/Snackbar";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+import { withStyles } from "@material-ui/styles";
+import styles from "../styles/NavbarStyles";
 
 class Navbar extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       format: "hex",
-      open: false,
-    }
-    this.handleFormat = this.handleFormat.bind(this)
-    this.closeSnackbar = this.closeSnackbar.bind(this)
+      open: false
+    };
+    this.handleFormat = this.handleFormat.bind(this);
+    this.closeSnackbar = this.closeSnackbar.bind(this);
   }
 
   handleFormat(evt) {
-    this.props.changeFormat(evt.target.value)
-    this.setState({ format: evt.target.value, open: true })
+    this.props.changeFormat(evt.target.value);
+    this.setState({ format: evt.target.value, open: true });
   }
 
   closeSnackbar() {
-    this.setState({ open: false })
+    this.setState({ open: false });
   }
 
   render() {
-    const { classes, level, changeLevel } = this.props
-    const { format } = this.state
+    const { classes, level, changeLevel } = this.props;
+    const { format } = this.state;
 
     return (
       <header className={classes.Navbar}>
@@ -42,19 +41,20 @@ class Navbar extends Component {
             <span className={classes.title}>Palette Maker</span>
             <span className={classes.subTitle}>3000</span>
           </Link>
-          {changeLevel && (<div className={classes.lightnessContainer}>
-            <label htmlFor="lumi-slider">Level: {level}</label>
-            <div className={classes.slider}>
-              <Slider
-                onChange={changeLevel}
-                value={level}
-                min={100}
-                max={900}
-                step={100}
-                defaultValue={level}
-              />
+          {changeLevel && (
+            <div className={classes.lightnessContainer}>
+              <label htmlFor="lumi-slider">Level: {level}</label>
+              <div className={classes.slider}>
+                <Slider
+                  onChange={changeLevel}
+                  value={level}
+                  min={100}
+                  max={900}
+                  step={100}
+                  defaultValue={level}
+                />
+              </div>
             </div>
-          </div>
           )}
         </div>
         <div className={classes.right}>
@@ -70,7 +70,11 @@ class Navbar extends Component {
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={this.state.open}
           autoHideDuration={3000}
-          message={<span id={classes.messageId}>Format Changed To <span className={classes.bold}>{format}</span></span>}
+          message={
+            <span id={classes.messageId}>
+              Format Changed To <span className={classes.bold}>{format}</span>
+            </span>
+          }
           ContentProps={{ "aria-describedby": "message-id" }}
           onClose={this.closeSnackbar}
           action={[
@@ -85,7 +89,7 @@ class Navbar extends Component {
           ]}
         />
       </header>
-    )
+    );
   }
 }
-export default withStyles(styles)(Navbar)
+export default withStyles(styles)(Navbar);

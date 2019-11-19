@@ -15,7 +15,7 @@ export default {
     height: "100px",
     width: "100%",
     borderRadius: "5px",
-    overflow: "hidden",
+    overflow: "hidden"
   },
   title: {
     display: "flex",
@@ -37,6 +37,6 @@ export default {
     display: "inline-block",
     margin: "0 auto",
     position: "relative",
-    marginBottom: "-5px",
+    marginBottom: "-5px"
   }
-}
+};

@@ -11,7 +11,7 @@ export default {
     display: "flex",
     alignItems: "flex-start",
     flexDirection: "column",
-    flexWrap: "wrap",
+    flexWrap: "wrap"
   },
   nav: {
     display: "flex",
@@ -36,8 +36,8 @@ export default {
     color: "#fff",
     textDecoration: "none",
     textTransform: "uppercase",
-    '&:hover': {
-      color: "rgba(255, 255, 255, 0.8)",
+    "&:hover": {
+      color: "rgba(255, 255, 255, 0.8)"
     }
   }
-}
+};

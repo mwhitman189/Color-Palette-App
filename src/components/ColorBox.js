@@ -1,23 +1,22 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { withStyles } from '@material-ui/styles'
-import styles from '../styles/ColorBoxStyles'
-
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { withStyles } from "@material-ui/styles";
+import styles from "../styles/ColorBoxStyles";
 
 class ColorBox extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      is_showing: false,
-    }
-    this.changeCopyState = this.changeCopyState.bind(this)
+      is_showing: false
+    };
+    this.changeCopyState = this.changeCopyState.bind(this);
   }
 
   changeCopyState() {
     this.setState({ is_showing: true }, () => {
-      setTimeout(() => this.setState({ is_showing: false }), 1400)
-    })
+      setTimeout(() => this.setState({ is_showing: false }), 1400);
+    });
   }
 
   render() {
@@ -29,26 +28,33 @@ class ColorBox extends Component {
       id,
       showLink,
       is_backBtn
-    } = this.props
-    const { is_showing } = this.state
+    } = this.props;
+    const { is_showing } = this.state;
 
-    let linkBtn
+    let linkBtn;
     if (is_backBtn) {
-      linkBtn = <Link to={`/palette/${id}`} className={classes.backBtn}>Go Back</Link>
+      linkBtn = (
+        <Link to={`/palette/${id}`} className={classes.backBtn}>
+          Go Back
+        </Link>
+      );
     } else {
-      linkBtn = <button className={`${classes.copyBtn}`}>Copy</button>
+      linkBtn = <button className={`${classes.copyBtn}`}>Copy</button>;
     }
 
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
-        <div className={`${classes.ColorBox}`} style={{ backgroundColor: background }}>
+        <div
+          className={`${classes.ColorBox}`}
+          style={{ backgroundColor: background }}
+        >
           {!is_backBtn && (
             <>
               <div
-                className={`${classes.copyOverlay} ${is_showing && 'show'}`}
+                className={`${classes.copyOverlay} ${is_showing && "show"}`}
                 style={{ backgroundColor: background }}
               />
-              <div className={`${classes.copyMsg} ${is_showing && 'show'}`}>
+              <div className={`${classes.copyMsg} ${is_showing && "show"}`}>
                 <h2>Copied!</h2>
                 <p>{background}</p>
               </div>
@@ -60,14 +66,17 @@ class ColorBox extends Component {
             </div>
             {linkBtn}
             {showLink && (
-              <Link to={`/palette/${paletteId}/${id}`} onClick={e => e.stopPropagation}>
+              <Link
+                to={`/palette/${paletteId}/${id}`}
+                onClick={e => e.stopPropagation}
+              >
                 <span className={`${classes.seeMore}`}>MORE</span>
               </Link>
             )}
           </div>
         </div>
       </CopyToClipboard>
-    )
+    );
   }
 }
-export default withStyles(styles)(ColorBox)
+export default withStyles(styles)(ColorBox);
