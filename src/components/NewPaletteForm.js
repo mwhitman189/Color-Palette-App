@@ -14,7 +14,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { ChromePicker } from "react-color";
 import chroma from "chroma-js";
-import ColorBox from "./ColorBox";
+import DraggableColorBox from "./DraggableColorBox";
 import uuid from "uuid/v4";
 
 const drawerWidth = 350;
@@ -64,7 +64,8 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    marginLeft: -drawerWidth
+    marginLeft: -drawerWidth,
+    height: "calc(100vh - 64px)"
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
@@ -178,15 +179,7 @@ export default function PersistentDrawerLeft() {
       >
         <div className={classes.drawerHeader} />
         {colors.map(color => (
-          <ColorBox
-            key={uuid()}
-            background={color}
-            // name={color.name}
-            // id={color.id}
-            // paletteId={id}
-            // showLink={true}
-            // isMainPalette={true}
-          />
+          <DraggableColorBox key={uuid} color={color} />
         ))}
       </main>
     </div>
