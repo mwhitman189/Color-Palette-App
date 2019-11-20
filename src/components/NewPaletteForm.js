@@ -13,6 +13,9 @@ import Button from "@material-ui/core/Button";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { ChromePicker } from "react-color";
+import chroma from "chroma-js";
+import ColorBox from "./ColorBox";
+import uuid from "uuid/v4";
 
 const drawerWidth = 350;
 
@@ -69,19 +72,22 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen
     }),
     marginLeft: 0
+  },
+  colorBtn: {
+    color: props => (chroma("#fff").luminance() > 0.3 ? "#353b48" : "#fff")
   }
 }));
-
-const styles = {
-  NewPaletteForm: {
-    backgroundColor: "#dae1e4"
-  }
-};
 
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [currentColor, setColor] = React.useState("teal");
+  const [colors, setPaletteColors] = React.useState([
+    "orange",
+    "blue",
+    "green"
+  ]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -90,6 +96,16 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const updateCurrentColor = newColor => {
+    setColor(newColor.hex);
+  };
+
+  const handleAddColor = () => {
+    console.log(currentColor);
+    setPaletteColors([...colors, currentColor]);
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -143,10 +159,15 @@ export default function PersistentDrawerLeft() {
           </Button>
         </div>
         <ChromePicker
-          color="yellow"
-          onChangeComplete={newColor => console.log(newColor)}
+          color={currentColor}
+          onChangeComplete={updateCurrentColor}
         />
-        <Button variant="contained" color="Primary">
+        <Button
+          className={classes.colorBtn}
+          variant="contained"
+          style={{ backgroundColor: currentColor }}
+          onClick={handleAddColor}
+        >
           Add Color
         </Button>
       </Drawer>
@@ -156,6 +177,17 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
+        {colors.map(color => (
+          <ColorBox
+            key={uuid()}
+            background={color}
+            // name={color.name}
+            // id={color.id}
+            // paletteId={id}
+            // showLink={true}
+            // isMainPalette={true}
+          />
+        ))}
       </main>
     </div>
   );
