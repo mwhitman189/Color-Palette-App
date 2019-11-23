@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -12,6 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { ChromePicker } from "react-color";
 import chroma from "chroma-js";
 import DraggableColorBox from "./DraggableColorBox";
@@ -82,13 +83,21 @@ const useStyles = makeStyles(theme => ({
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [currentColor, setColor] = React.useState("teal");
-  const [colors, setPaletteColors] = React.useState([
-    "orange",
-    "blue",
-    "green"
+  const [open, setOpen] = useState(false);
+  const [currentColor, setColor] = useState("teal");
+  const [colors, setPaletteColors] = useState([
+    { color: "orange", name: "Orange" }
   ]);
+  const [colorName, setColorName] = useState("");
+
+  useEffect(() => {
+    // Add form input validation. Check whether the current value is already in the colors list.
+    ValidatorForm.addValidationRule("isUniqueName", value => {
+      return colors.every(
+        ({ name }) => value.toLowerCase() !== name.toLowerCase()
+      );
+    });
+  });
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -102,9 +111,13 @@ export default function PersistentDrawerLeft() {
     setColor(newColor.hex);
   };
 
-  const handleAddColor = () => {
-    console.log(currentColor);
-    setPaletteColors([...colors, currentColor]);
+  const addColor = () => {
+    const newColor = { color: currentColor, name: colorName };
+    setPaletteColors([...colors, newColor]);
+  };
+
+  const handleChange = evt => {
+    setColorName(evt.target.value);
   };
 
   return (
@@ -163,14 +176,22 @@ export default function PersistentDrawerLeft() {
           color={currentColor}
           onChangeComplete={updateCurrentColor}
         />
-        <Button
-          className={classes.colorBtn}
-          variant="contained"
-          style={{ backgroundColor: currentColor }}
-          onClick={handleAddColor}
-        >
-          Add Color
-        </Button>
+        <ValidatorForm onSubmit={addColor}>
+          <TextValidator
+            value={colorName}
+            onChange={handleChange}
+            validators={["isUniqueName"]}
+            errorMessages={["That name is already taken. Sorry!"]}
+          />
+          <Button
+            className={classes.colorBtn}
+            variant="contained"
+            style={{ backgroundColor: currentColor }}
+            type="submit"
+          >
+            Add Color
+          </Button>
+        </ValidatorForm>
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -179,7 +200,11 @@ export default function PersistentDrawerLeft() {
       >
         <div className={classes.drawerHeader} />
         {colors.map(color => (
-          <DraggableColorBox key={uuid} color={color} />
+          <DraggableColorBox
+            key={uuid()}
+            color={color.color}
+            name={color.name}
+          />
         ))}
       </main>
     </div>
