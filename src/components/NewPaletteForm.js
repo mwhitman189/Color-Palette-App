@@ -38,6 +38,10 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen
     })
   },
+  Toolbar: {
+    display: "flex",
+    justifyContent: "space-between"
+  },
   menuButton: {
     marginRight: theme.spacing(2)
   },
@@ -80,7 +84,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -114,10 +118,22 @@ export default function PersistentDrawerLeft() {
   const addColor = () => {
     const newColor = { color: currentColor, name: colorName };
     setPaletteColors([...colors, newColor]);
+    setColorName("");
   };
 
   const handleChange = evt => {
     setColorName(evt.target.value);
+  };
+
+  const handleSavePalette = () => {
+    let newName = "New Test palette";
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLowerCase().replace(/ /g, "-"),
+      colors: colors
+    };
+    props.savePalette(newPalette);
+    props.history.push("/");
   };
 
   return (
@@ -129,7 +145,7 @@ export default function PersistentDrawerLeft() {
           [classes.appBarShift]: open
         })}
       >
-        <Toolbar>
+        <Toolbar className={classes.Toolbar}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -140,8 +156,16 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            Create New Palette
           </Typography>
+          <Button
+            className={classes.saveBtn}
+            variant="contained"
+            style={{ backgroundColor: "#C880ED" }}
+            onClick={handleSavePalette}
+          >
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
