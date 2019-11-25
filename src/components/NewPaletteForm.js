@@ -150,6 +150,13 @@ export default function PersistentDrawerLeft(props) {
     props.history.push("/");
   };
 
+  const removeColor = colorName => {
+    setState({
+      ...state,
+      colors: state.colors.filter(color => color.name !== colorName)
+    });
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -255,6 +262,7 @@ export default function PersistentDrawerLeft(props) {
           state.colors.map(color => (
             <DraggableColorBox
               key={uuid()}
+              handleClick={() => removeColor(color.name)}
               color={color.color}
               name={color.name}
             />
