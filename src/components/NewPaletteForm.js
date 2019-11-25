@@ -87,50 +87,64 @@ const useStyles = makeStyles(theme => ({
 export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
-  const [currentColor, setColor] = useState("teal");
-  const [colors, setPaletteColors] = useState([
-    { color: "orange", name: "Orange" }
-  ]);
-  const [colorName, setColorName] = useState("");
+
+  const [state, setState] = useState({
+    open: false,
+    currentColor: "yellow",
+    colors: [],
+    newColorName: "",
+    newPaletteName: ""
+  });
 
   useEffect(() => {
-    // Add form input validation. Check whether the current value is already in the colors list.
-    ValidatorForm.addValidationRule("isUniqueName", value => {
-      return colors.every(
+    // Check whether the current value is already in the colors list.
+    ValidatorForm.addValidationRule("isUniqueColorName", value => {
+      return state.colors.every(
         ({ name }) => value.toLowerCase() !== name.toLowerCase()
+      );
+    });
+
+    // Check whether the current value is already in the palettes list
+    ValidatorForm.addValidationRule("isUniquePaletteName", value => {
+      return props.paletteList.every(
+        ({ paletteName }) => value.toLowerCase() !== paletteName.toLowerCase()
       );
     });
   });
 
   const handleDrawerOpen = () => {
-    setOpen(true);
+    setState({ ...state, open: true });
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    setState({ ...state, open: false });
   };
 
   const updateCurrentColor = newColor => {
-    setColor(newColor.hex);
+    setState({ ...state, currentColor: newColor.hex });
   };
 
   const addColor = () => {
-    const newColor = { color: currentColor, name: colorName };
-    setPaletteColors([...colors, newColor]);
-    setColorName("");
+    const newColor = { color: state.currentColor, name: state.newColorName };
+    setState({
+      ...state,
+      colors: [...state.colors, newColor],
+      newColorName: ""
+    });
   };
 
   const handleChange = evt => {
-    setColorName(evt.target.value);
+    setState({
+      ...state,
+      [evt.target.name]: evt.target.value
+    });
   };
 
   const handleSavePalette = () => {
-    let newName = "New Test palette";
     const newPalette = {
-      paletteName: newName,
-      id: newName.toLowerCase().replace(/ /g, "-"),
-      colors: colors
+      paletteName: state.newPaletteName,
+      id: state.newPaletteName.toLowerCase().replace(/ /g, "-"),
+      colors: state.colors
     };
     props.savePalette(newPalette);
     props.history.push("/");
@@ -142,7 +156,7 @@ export default function PersistentDrawerLeft(props) {
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
+          [classes.appBarShift]: state.open
         })}
       >
         <Toolbar className={classes.Toolbar}>
@@ -151,28 +165,41 @@ export default function PersistentDrawerLeft(props) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, state.open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
             Create New Palette
           </Typography>
-          <Button
-            className={classes.saveBtn}
-            variant="contained"
-            style={{ backgroundColor: "#C880ED" }}
-            onClick={handleSavePalette}
-          >
-            Save Palette
-          </Button>
+          <ValidatorForm onSubmit={handleSavePalette}>
+            <TextValidator
+              label="Palette Name"
+              value={state.newPaletteName}
+              name="newPaletteName"
+              onChange={handleChange}
+              validators={["required", "isUniquePaletteName"]}
+              errorMessages={[
+                "Please enter a palette name",
+                "That name is already taken"
+              ]}
+            />
+            <Button
+              className={classes.saveBtn}
+              variant="contained"
+              style={{ backgroundColor: "#C880ED" }}
+              type="submit"
+            >
+              Save Palette
+            </Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={state.open}
         classes={{
           paper: classes.drawerPaper
         }}
@@ -197,20 +224,21 @@ export default function PersistentDrawerLeft(props) {
           </Button>
         </div>
         <ChromePicker
-          color={currentColor}
+          color={state.currentColor}
           onChangeComplete={updateCurrentColor}
         />
         <ValidatorForm onSubmit={addColor}>
           <TextValidator
-            value={colorName}
+            value={state.newColorName}
+            name="newColorName"
             onChange={handleChange}
-            validators={["isUniqueName"]}
+            validators={["isUniqueColorName"]}
             errorMessages={["That name is already taken. Sorry!"]}
           />
           <Button
             className={classes.colorBtn}
             variant="contained"
-            style={{ backgroundColor: currentColor }}
+            style={{ backgroundColor: state.currentColor }}
             type="submit"
           >
             Add Color
@@ -219,17 +247,18 @@ export default function PersistentDrawerLeft(props) {
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open
+          [classes.contentShift]: state.open
         })}
       >
         <div className={classes.drawerHeader} />
-        {colors.map(color => (
-          <DraggableColorBox
-            key={uuid()}
-            color={color.color}
-            name={color.name}
-          />
-        ))}
+        {state.colors &&
+          state.colors.map(color => (
+            <DraggableColorBox
+              key={uuid()}
+              color={color.color}
+              name={color.name}
+            />
+          ))}
       </main>
     </div>
   );
