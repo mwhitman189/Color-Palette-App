@@ -91,7 +91,11 @@ export default function PersistentDrawerLeft(props) {
   const [state, setState] = useState({
     open: false,
     currentColor: "yellow",
-    colors: [],
+    colors: [
+      { color: "#FBEA02", name: "Yellow" },
+      { color: "#447AEF", name: "Blue" },
+      { color: "#EF2C60", name: "Red" }
+    ],
     newColorName: "",
     newPaletteName: ""
   });
@@ -150,6 +154,7 @@ export default function PersistentDrawerLeft(props) {
     props.history.push("/");
   };
 
+  // Resort colors array in state for use with react-sortable-hoc
   const onSortEnd = ({ oldIndex, newIndex }) => {
     setState(({ colors }) => ({
       ...state,
@@ -161,6 +166,22 @@ export default function PersistentDrawerLeft(props) {
     setState({
       ...state,
       colors: state.colors.filter(color => color.name !== colorName)
+    });
+  };
+
+  const clearPalette = () => {
+    setState({
+      ...state,
+      colors: []
+    });
+  };
+
+  const getRandomColor = () => {
+    let randColor = chroma.random().toString();
+    let newColor = { color: randColor, name: randColor };
+    setState({
+      ...state,
+      colors: [...state.colors, newColor]
     });
   };
 
@@ -230,10 +251,10 @@ export default function PersistentDrawerLeft(props) {
         <Divider />
         <Typography variant="h4">Design a palette</Typography>
         <div>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" onClick={clearPalette}>
             Clear Palette
           </Button>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={getRandomColor}>
             Random Color
           </Button>
         </div>
