@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PaletteFormNav from "./PaletteFormNav";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -9,7 +9,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { ValidatorForm } from "react-material-ui-form-validator";
 import chroma from "chroma-js";
 import DraggableColorList from "./DraggableColorList";
 import { arrayMove } from "react-sortable-hoc";
@@ -99,15 +98,6 @@ export default function PersistentDrawerLeft(props) {
       { color: "#447AEF", name: "Blue" },
       { color: "#EF2C60", name: "Red" }
     ]
-  });
-
-  useEffect(() => {
-    // Check whether the current value is already in the colors list.
-    ValidatorForm.addValidationRule("isUniqueColorName", value => {
-      return state.colors.every(
-        ({ name }) => value.toLowerCase() !== name.toLowerCase()
-      );
-    });
   });
 
   const handleDrawerOpen = () => {
@@ -203,7 +193,11 @@ export default function PersistentDrawerLeft(props) {
             Random Color
           </Button>
         </div>
-        <ColorPickerForm addColor={addColor} classes={classes} />
+        <ColorPickerForm
+          addColor={addColor}
+          classes={classes}
+          colors={state.colors}
+        />
       </Drawer>
       <main
         className={clsx(classes.content, {
