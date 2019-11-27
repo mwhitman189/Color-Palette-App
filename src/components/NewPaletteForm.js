@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
+import PaletteFormNav from "./PaletteFormNav";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -81,6 +78,13 @@ const useStyles = makeStyles(theme => ({
   },
   colorBtn: {
     color: props => (chroma("#fff").luminance() > 0.3 ? "#353b48" : "#fff")
+  },
+  backBtn: {
+    backgroundColor: "#353b48",
+    margin: ".2rem .5rem"
+  },
+  saveBtn: {
+    margin: ".2rem .5rem"
   }
 }));
 
@@ -96,8 +100,7 @@ export default function PersistentDrawerLeft(props) {
       { color: "#447AEF", name: "Blue" },
       { color: "#EF2C60", name: "Red" }
     ],
-    newColorName: "",
-    newPaletteName: ""
+    newColorName: ""
   });
 
   useEffect(() => {
@@ -105,13 +108,6 @@ export default function PersistentDrawerLeft(props) {
     ValidatorForm.addValidationRule("isUniqueColorName", value => {
       return state.colors.every(
         ({ name }) => value.toLowerCase() !== name.toLowerCase()
-      );
-    });
-
-    // Check whether the current value is already in the palettes list
-    ValidatorForm.addValidationRule("isUniquePaletteName", value => {
-      return props.paletteList.every(
-        ({ paletteName }) => value.toLowerCase() !== paletteName.toLowerCase()
       );
     });
   });
@@ -144,10 +140,10 @@ export default function PersistentDrawerLeft(props) {
     });
   };
 
-  const handleSavePalette = () => {
+  const handleSavePalette = newPaletteName => {
     const newPalette = {
-      paletteName: state.newPaletteName,
-      id: state.newPaletteName.toLowerCase().replace(/ /g, "-"),
+      paletteName: newPaletteName,
+      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
       colors: state.colors
     };
     props.savePalette(newPalette);
@@ -187,49 +183,13 @@ export default function PersistentDrawerLeft(props) {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: state.open
-        })}
-      >
-        <Toolbar className={classes.Toolbar}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, state.open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Create New Palette
-          </Typography>
-          <ValidatorForm onSubmit={handleSavePalette}>
-            <TextValidator
-              label="Palette Name"
-              value={state.newPaletteName}
-              name="newPaletteName"
-              onChange={handleChange}
-              validators={["required", "isUniquePaletteName"]}
-              errorMessages={[
-                "Please enter a palette name",
-                "That name is already taken"
-              ]}
-            />
-            <Button
-              className={classes.saveBtn}
-              variant="contained"
-              style={{ backgroundColor: "#C880ED" }}
-              type="submit"
-            >
-              Save Palette
-            </Button>
-          </ValidatorForm>
-        </Toolbar>
-      </AppBar>
+      <PaletteFormNav
+        classes={classes}
+        open={state.open}
+        paletteList={props.paletteList}
+        handleSavePalette={handleSavePalette}
+        handleDrawerOpen={handleDrawerOpen}
+      />
       <Drawer
         className={classes.drawer}
         variant="persistent"
