@@ -9,11 +9,11 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { ChromePicker } from "react-color";
+import { ValidatorForm } from "react-material-ui-form-validator";
 import chroma from "chroma-js";
 import DraggableColorList from "./DraggableColorList";
 import { arrayMove } from "react-sortable-hoc";
+import ColorPickerForm from "./ColorPickerForm";
 
 const drawerWidth = 350;
 
@@ -94,13 +94,11 @@ export default function PersistentDrawerLeft(props) {
 
   const [state, setState] = useState({
     open: false,
-    currentColor: "yellow",
     colors: [
       { color: "#FBEA02", name: "Yellow" },
       { color: "#447AEF", name: "Blue" },
       { color: "#EF2C60", name: "Red" }
-    ],
-    newColorName: ""
+    ]
   });
 
   useEffect(() => {
@@ -120,23 +118,10 @@ export default function PersistentDrawerLeft(props) {
     setState({ ...state, open: false });
   };
 
-  const updateCurrentColor = newColor => {
-    setState({ ...state, currentColor: newColor.hex });
-  };
-
-  const addColor = () => {
-    const newColor = { color: state.currentColor, name: state.newColorName };
+  const addColor = newColor => {
     setState({
       ...state,
-      colors: [...state.colors, newColor],
-      newColorName: ""
-    });
-  };
-
-  const handleChange = evt => {
-    setState({
-      ...state,
-      [evt.target.name]: evt.target.value
+      colors: [...state.colors, newColor]
     });
   };
 
@@ -218,27 +203,7 @@ export default function PersistentDrawerLeft(props) {
             Random Color
           </Button>
         </div>
-        <ChromePicker
-          color={state.currentColor}
-          onChangeComplete={updateCurrentColor}
-        />
-        <ValidatorForm onSubmit={addColor}>
-          <TextValidator
-            value={state.newColorName}
-            name="newColorName"
-            onChange={handleChange}
-            validators={["isUniqueColorName"]}
-            errorMessages={["That name is already taken. Sorry!"]}
-          />
-          <Button
-            className={classes.colorBtn}
-            variant="contained"
-            style={{ backgroundColor: state.currentColor }}
-            type="submit"
-          >
-            Add Color
-          </Button>
-        </ValidatorForm>
+        <ColorPickerForm addColor={addColor} classes={classes} />
       </Drawer>
       <main
         className={clsx(classes.content, {
