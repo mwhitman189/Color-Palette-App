@@ -13,33 +13,13 @@ import chroma from "chroma-js";
 import DraggableColorList from "./DraggableColorList";
 import { arrayMove } from "react-sortable-hoc";
 import ColorPickerForm from "./ColorPickerForm";
+import appVariables from "../appVariables.js";
 
-const drawerWidth = 350;
+const drawerWidth = appVariables.drawerWidth;
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex"
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  Toolbar: {
-    display: "flex",
-    justifyContent: "space-between"
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
   },
   hide: {
     display: "none"
@@ -108,11 +88,22 @@ export default function PersistentDrawerLeft(props) {
     setState({ ...state, open: false });
   };
 
+  const checkForColor = newColor => {
+    console.log(state.colors[0].color);
+    return state.colors.every(
+      ({ color }) => color.toLowerCase() !== newColor.color.toLowerCase()
+    );
+  };
+
   const addColor = newColor => {
-    setState({
-      ...state,
-      colors: [...state.colors, newColor]
-    });
+    if (checkForColor(newColor)) {
+      setState({
+        ...state,
+        colors: [...state.colors, newColor]
+      });
+    } else {
+      alert("Already in palette!");
+    }
   };
 
   const handleSavePalette = newPaletteName => {

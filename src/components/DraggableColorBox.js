@@ -27,7 +27,8 @@ const styles = {
     fontSize: ".7rem",
     letterSpacing: ".1em",
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    wordBreak: "break-all"
   },
   deleteIcon: {
     color: "#353b48",
