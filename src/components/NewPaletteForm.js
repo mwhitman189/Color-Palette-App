@@ -148,11 +148,13 @@ export default function PersistentDrawerLeft(props) {
   };
 
   const getRandomColor = () => {
-    let randColor = chroma.random().toString();
-    let newColor = { color: randColor, name: randColor };
+    let paletteList = props.paletteList.map(p => p.colors).flat();
+    let randIdx = Math.floor(Math.random() * paletteList.length);
+    let randColor = paletteList[randIdx];
+
     setState({
       ...state,
-      colors: [...state.colors, newColor]
+      colors: [...state.colors, randColor]
     });
   };
 
