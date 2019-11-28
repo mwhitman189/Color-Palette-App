@@ -29,7 +29,9 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
+    display: "flex",
+    alignItems: "center"
   },
   drawerHeader: {
     display: "flex",
@@ -64,6 +66,18 @@ const useStyles = makeStyles(theme => ({
   },
   saveBtn: {
     margin: ".2rem .5rem"
+  },
+  container: {
+    width: "90%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "1rem"
+  },
+  buttons: {
+    margin: "0.5rem"
   }
 }));
 
@@ -177,20 +191,30 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </div>
         <Divider />
-        <Typography variant="h4">Design a palette</Typography>
-        <div>
-          <Button variant="contained" color="secondary" onClick={clearPalette}>
-            Clear Palette
-          </Button>
-          <Button variant="contained" color="primary" onClick={getRandomColor}>
-            Random Color
-          </Button>
+        <div className={classes.container}>
+          <Typography variant="h4">Design a palette</Typography>
+          <div className={classes.buttons}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={clearPalette}
+            >
+              Clear Palette
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={getRandomColor}
+            >
+              Random Color
+            </Button>
+          </div>
+          <ColorPickerForm
+            addColor={addColor}
+            classes={classes}
+            colors={state.colors}
+          />
         </div>
-        <ColorPickerForm
-          addColor={addColor}
-          classes={classes}
-          colors={state.colors}
-        />
       </Drawer>
       <main
         className={clsx(classes.content, {
