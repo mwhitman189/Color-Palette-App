@@ -102,15 +102,14 @@ export default function PersistentDrawerLeft(props) {
     setState({ ...state, open: false });
   };
 
-  const checkForColor = newColor => {
-    console.log(state.colors[0].color);
+  const checkIfColorAbsent = newColor => {
     return state.colors.every(
       ({ color }) => color.toLowerCase() !== newColor.color.toLowerCase()
     );
   };
 
   const addColor = newColor => {
-    if (checkForColor(newColor)) {
+    if (checkIfColorAbsent(newColor)) {
       setState({
         ...state,
         colors: [...state.colors, newColor]
@@ -166,7 +165,6 @@ export default function PersistentDrawerLeft(props) {
   return (
     <div className={classes.root}>
       <PaletteFormNav
-        classes={classes}
         open={state.open}
         paletteList={props.paletteList}
         handleSavePalette={handleSavePalette}
@@ -209,11 +207,7 @@ export default function PersistentDrawerLeft(props) {
               Random Color
             </Button>
           </div>
-          <ColorPickerForm
-            addColor={addColor}
-            classes={classes}
-            colors={state.colors}
-          />
+          <ColorPickerForm addColor={addColor} colors={state.colors} />
         </div>
       </Drawer>
       <main
