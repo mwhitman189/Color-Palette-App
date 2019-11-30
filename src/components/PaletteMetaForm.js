@@ -47,19 +47,18 @@ export default function FormDialog(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
+      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
+        Save Palette
       </Button>
       <Dialog
         open={state.open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Save Palette</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+            What would you like to name your palette?
           </DialogContentText>
           <ValidatorForm onSubmit={() => savePalette(state.paletteName)}>
             <TextValidator
