@@ -11,11 +11,9 @@ import { Picker } from "emoji-mart";
 
 export default function FormDialog(props) {
   const [state, setState] = React.useState({
-    open: false,
+    stage: "name",
     paletteName: ""
   });
-
-  const { savePalette } = props;
 
   useEffect(() => {
     // Check whether the current value is already in the palettes list
@@ -26,18 +24,21 @@ export default function FormDialog(props) {
     });
   });
 
-  const handleClickOpen = () => {
-    setState({
-      ...state,
-      open: true
-    });
+  const showEmojiStage = () => {
+    if (state.paletteName !== "") {
+      setState({
+        ...state,
+        stage: "emoji"
+      });
+    }
   };
 
-  const handleClose = () => {
-    setState({
-      ...state,
-      open: false
-    });
+  const savePalette = emoji => {
+    let newPalette = {
+      paletteName: state.paletteName,
+      emoji: emoji.native
+    };
+    props.handleSubmit(newPalette);
   };
 
   const handleChange = evt => {
@@ -49,21 +50,23 @@ export default function FormDialog(props) {
 
   return (
     <div>
-      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
-        Save Palette
-      </Button>
+      <Dialog open={state.stage === "emoji"} onClose={props.hideForm}>
+        <DialogTitle id="emoji-dialog-title">
+          Select A Palette Emoji
+        </DialogTitle>
+        <Picker title="Select an emoji" onSelect={savePalette} />
+      </Dialog>
       <Dialog
-        open={state.open}
-        onClose={handleClose}
+        open={state.stage === "name"}
+        onClose={props.hideForm}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Save Palette</DialogTitle>
         <DialogContent>
-          <Picker />
           <DialogContentText>
             What would you like to name your palette?
           </DialogContentText>
-          <ValidatorForm onSubmit={() => savePalette(state.paletteName)}>
+          <ValidatorForm onSubmit={showEmojiStage}>
             <TextValidator
               autoFocus
               fullWidth
@@ -79,10 +82,10 @@ export default function FormDialog(props) {
               ]}
             />
             <DialogActions>
-              <Button onClick={handleClose} color="primary">
+              <Button onClick={props.hideForm} color="primary">
                 Cancel
               </Button>
-              <Button type="submit" color="primary">
+              <Button type="submit" color="primary" onClick={showEmojiStage}>
                 Add Palette
               </Button>
             </DialogActions>

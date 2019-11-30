@@ -44,12 +44,29 @@ class PaletteFormNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newPaletteName: ""
+      newPaletteName: "",
+      formShowing: false
     };
+    this.showForm = this.showForm.bind(this);
+    this.hideForm = this.hideForm.bind(this);
+  }
+
+  showForm() {
+    this.setState({ formShowing: true });
+  }
+
+  hideForm() {
+    this.setState({ formShowing: false });
   }
 
   render() {
-    const { classes, open, handleSavePalette, handleDrawerOpen } = this.props;
+    const {
+      classes,
+      open,
+      handleSubmit,
+      handleDrawerOpen,
+      paletteList
+    } = this.props;
     const { newPaletteName } = this.state;
 
     return (
@@ -82,11 +99,21 @@ class PaletteFormNav extends Component {
               >
                 Go Back
               </Button>
-              <PaletteMetaForm
-                savePalette={handleSavePalette}
-                paletteName={newPaletteName}
-                paletteList={this.props.paletteList}
-              />
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.showForm}
+              >
+                Save Palette
+              </Button>
+              {this.state.formShowing && (
+                <PaletteMetaForm
+                  handleSubmit={handleSubmit}
+                  paletteName={newPaletteName}
+                  paletteList={paletteList}
+                  hideForm={this.hideForm}
+                />
+              )}
             </div>
           </Toolbar>
         </AppBar>

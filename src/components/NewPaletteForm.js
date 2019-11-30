@@ -119,12 +119,11 @@ export default function PersistentDrawerLeft(props) {
     }
   };
 
-  const handleSavePalette = newPaletteName => {
-    const newPalette = {
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
-      colors: state.colors
-    };
+  const handleSubmit = newPalette => {
+    console.log(newPalette);
+    newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-");
+    newPalette.colors = state.colors;
+
     props.savePalette(newPalette);
     props.history.push("/");
   };
@@ -167,7 +166,7 @@ export default function PersistentDrawerLeft(props) {
       <PaletteFormNav
         open={state.open}
         paletteList={props.paletteList}
-        handleSavePalette={handleSavePalette}
+        handleSubmit={handleSubmit}
         handleDrawerOpen={handleDrawerOpen}
       />
       <Drawer
