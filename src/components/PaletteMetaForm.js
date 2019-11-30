@@ -6,6 +6,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
 
 export default function FormDialog(props) {
   const [state, setState] = React.useState({
@@ -57,6 +59,7 @@ export default function FormDialog(props) {
       >
         <DialogTitle id="form-dialog-title">Save Palette</DialogTitle>
         <DialogContent>
+          <Picker />
           <DialogContentText>
             What would you like to name your palette?
           </DialogContentText>
