@@ -3,24 +3,7 @@ import Button from "@material-ui/core/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { ChromePicker } from "react-color";
 import { withStyles } from "@material-ui/core/styles";
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column"
-  },
-  picker: {
-    width: "100% !important"
-  },
-  colorBtn: {
-    width: "100%",
-    padding: "0.5rem",
-    fontSize: "1.5rem"
-  },
-  colorNameInput: {
-    width: "100%"
-  }
-};
+import styles from "../styles/ColorPickerFormStyles";
 
 class ColorPickerForm extends Component {
   constructor(props) {

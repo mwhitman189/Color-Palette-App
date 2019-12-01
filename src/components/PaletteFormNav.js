@@ -7,38 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { withStyles } from "@material-ui/core/styles";
-import appVariables from "../appVariables.js";
 import PaletteMetaForm from "./PaletteMetaForm";
 import { Button } from "@material-ui/core";
-
-const drawerWidth = appVariables.drawerWidth;
-
-const styles = theme => ({
-  Toolbar: {
-    display: "flex",
-    justifyContent: "space-between"
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  menuButtons: {
-    display: "flex"
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  }
-});
+import styles from "../styles/PaletteFormNavStyles";
 
 class PaletteFormNav extends Component {
   constructor(props) {

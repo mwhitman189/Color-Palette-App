@@ -1,3 +1,1 @@
-export default {
-  drawerWidth: 350
-};
+export const DRAWER_WIDTH = 350;
