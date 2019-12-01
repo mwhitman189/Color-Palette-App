@@ -10,6 +10,7 @@ import PaletteMetaForm from "./PaletteMetaForm";
 import { Button } from "@material-ui/core";
 import styles from "../styles/PaletteFormNavStyles";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { withRouter } from "react-router-dom";
 
 class PaletteFormNav extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class PaletteFormNav extends Component {
     };
     this.showForm = this.showForm.bind(this);
     this.hideForm = this.hideForm.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   showForm() {
@@ -28,6 +30,10 @@ class PaletteFormNav extends Component {
 
   hideForm() {
     this.setState({ formShowing: false });
+  }
+
+  goBack() {
+    this.props.history.goBack();
   }
 
   render() {
@@ -71,6 +77,7 @@ class PaletteFormNav extends Component {
                 variant="contained"
                 color="default"
                 className={classes.menuButton}
+                onClick={this.goBack}
               >
                 Go Back
               </Button>
@@ -96,4 +103,6 @@ class PaletteFormNav extends Component {
     );
   }
 }
-export default withStyles(styles, { withTheme: true })(PaletteFormNav);
+export default withRouter(
+  withStyles(styles, { withTheme: true })(PaletteFormNav)
+);

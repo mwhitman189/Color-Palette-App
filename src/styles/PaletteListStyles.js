@@ -2,10 +2,11 @@ export default {
   root: {
     position: "relative",
     backgroundColor: "blue",
-    height: "100%",
+    minHeight: "100%",
     display: "flex",
     alignItems: "flex-start",
-    justifyContent: "center"
+    justifyContent: "center",
+    boxSizing: "border-box"
   },
   container: {
     width: "60%",
