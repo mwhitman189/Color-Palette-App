@@ -52,6 +52,10 @@ export default {
         chroma(props.background).luminance() > 0.4
           ? "rgba(0, 0, 0, 0.2)"
           : "rgba(255, 255, 255, 0.2)"
+    },
+    [sizes.down("sm")]: {
+      height: "24px",
+      lineHeight: "24px"
     }
   },
   copyBtn: {
@@ -72,7 +76,11 @@ export default {
     fontSize: "1rem",
     lineHeight: "30px",
     cursor: "pointer",
-    transition: "0.4s opacity"
+    transition: "0.4s opacity",
+    [sizes.down("sm")]: {
+      height: "24px",
+      marginTop: "-11.5px"
+    }
   },
   copyOverlay: {
     opacity: 0,
@@ -122,6 +130,9 @@ export default {
       color: "rgba(255,255,255, 0.7)",
       fontSize: "1.5rem",
       margin: 0
+    },
+    [sizes.down("sm")]: {
+      fontSize: "2rem"
     }
   },
   boxContent: {
