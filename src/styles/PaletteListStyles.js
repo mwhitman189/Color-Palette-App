@@ -1,7 +1,6 @@
 export default {
   root: {
     position: "relative",
-    backgroundColor: "blue",
     minHeight: "100%",
     display: "flex",
     alignItems: "flex-start",
@@ -14,6 +13,9 @@ export default {
     alignItems: "flex-start",
     flexDirection: "column",
     flexWrap: "wrap"
+  },
+  blueBackground: {
+    backgroundColor: "blue"
   },
   nav: {
     display: "flex",

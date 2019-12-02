@@ -9,6 +9,11 @@ class PaletteList extends Component {
     this.props.history.push(`/palette/${id}`);
   }
 
+  componentDidMount() {
+    // Set the background color of the entire page, rather than just the component
+    document.body.classList.add(this.props.classes.blueBackground);
+  }
+
   render() {
     const { palettes, classes, deletePalette } = this.props;
     return (

@@ -100,7 +100,6 @@ export default function PersistentDrawerLeft(props) {
         paletteList={props.paletteList}
         handleSubmit={handleSubmit}
         handleDrawerOpen={handleDrawerOpen}
-        {...props.routeProps}
       />
       <Drawer
         className={classes.drawer}
