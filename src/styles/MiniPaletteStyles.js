@@ -1,3 +1,5 @@
+import sizes from "./sizes";
+
 export default {
   root: {
     backgroundColor: "white",
@@ -8,11 +10,13 @@ export default {
     cursor: "pointer",
     "&:hover svg": {
       opacity: 1
-    }
+    },
+    boxShadow:
+      "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)"
   },
   colors: {
     backgroundColor: "#dae1e4",
-    height: "100px",
+    height: "80%",
     width: "100%",
     borderRadius: "5px",
     overflow: "hidden"
@@ -25,7 +29,13 @@ export default {
     margin: "0",
     color: "black",
     paddingTop: "0rem",
-    position: "relative"
+    position: "relative",
+    [sizes.down("lg")]: {
+      fontSize: ".8rem"
+    },
+    [sizes.down("sm")]: {
+      fontSize: ".9rem"
+    }
   },
   emoji: {
     marginLeft: "0.5rem",

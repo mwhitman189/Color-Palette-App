@@ -1,3 +1,5 @@
+import sizes from "./sizes";
+
 export default {
   root: {
     position: "relative",
@@ -8,11 +10,20 @@ export default {
     boxSizing: "border-box"
   },
   container: {
-    width: "60%",
+    width: "65%",
     display: "flex",
     alignItems: "flex-start",
     flexDirection: "column",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    [sizes.down("md")]: {
+      width: "75%"
+    },
+    [sizes.down("sm")]: {
+      width: "80%"
+    },
+    [sizes.down("xsm")]: {
+      width: "85%"
+    }
   },
   blueBackground: {
     backgroundColor: "blue"
@@ -33,7 +44,13 @@ export default {
     width: "100%",
     display: "grid",
     gridTemplateColumns: "repeat(3, 30%)",
-    gridGap: "5%"
+    gridGap: "5%",
+    [sizes.down("sm")]: {
+      gridTemplateColumns: "repeat(2, 50%)"
+    },
+    [sizes.down("xsm")]: {
+      gridTemplateColumns: "repeat(1, 100%)"
+    }
   },
   link: {
     fontWeight: "800",
