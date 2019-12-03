@@ -1,3 +1,5 @@
+import sizes from "./sizes";
+
 export default {
   Navbar: {
     display: "flex",
@@ -20,31 +22,39 @@ export default {
     width: "250px",
     "& label": {
       fontSize: "0.9rem"
+    },
+    [sizes.down("sm")]: {
+      width: "180px"
     }
   },
   logo: {
     borderRadius: "15px",
     backgroundColor: "#dcdde1",
-    margin: ".2rem .5rem .2rem .2rem",
-    width: "150px",
-    padding: "0.3rem 0 .3rem 1rem",
+    margin: "0 .5rem 0 .2rem",
+    padding: "0.3rem .3rem .3rem .3rem",
     textDecoration: "none"
   },
   title: {
     color: "#353b48",
     fontSize: "1.2rem",
-    fontWeight: 400
+    fontWeight: 400,
+    [sizes.down("md")]: {
+      fontSize: "1rem"
+    }
   },
   subTitle: {
     color: "#353b48",
     fontSize: "1.5rem",
     fontWeight: 700,
     position: "relative",
-    margin: "10px"
+    marginLeft: "10px",
+    [sizes.down("md")]: {
+      display: "none",
+      fontSize: "1rem"
+    }
   },
   slider: {
     width: "100%",
-    maxWidth: "350px",
     display: "inline-block",
     "& .rc-slider-rail": {
       backgroundColor: "#dcdde1",
