@@ -44,7 +44,7 @@ export default {
     width: "100%",
     display: "grid",
     gridTemplateColumns: "repeat(3, 30%)",
-    gridGap: "5%",
+    gridGap: "1.5rem",
     [sizes.down("sm")]: {
       gridTemplateColumns: "repeat(2, 50%)"
     },

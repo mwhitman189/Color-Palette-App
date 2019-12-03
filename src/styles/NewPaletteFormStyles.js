@@ -49,11 +49,7 @@ const useStyles = makeStyles(theme => ({
     color: props => (chroma("#fff").luminance() > 0.3 ? "#353b48" : "#fff")
   },
   backBtn: {
-    backgroundColor: "#353b48",
-    margin: ".2rem .5rem"
-  },
-  saveBtn: {
-    margin: ".2rem .5rem"
+    backgroundColor: "#353b48"
   },
   container: {
     width: "90%",
@@ -65,7 +61,11 @@ const useStyles = makeStyles(theme => ({
     marginTop: "1rem"
   },
   buttons: {
-    margin: "0.5rem"
+    margin: "0.4rem 0",
+    "& button": {
+      fontSize: ".7rem",
+      margin: "0 .2rem"
+    }
   }
 }));
 export default useStyles;
