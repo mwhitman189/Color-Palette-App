@@ -53,7 +53,7 @@ class PaletteList extends Component {
   }
 
   closeDialog() {
-    this.setState({ is_open: false });
+    this.setState({ is_open: false, paletteId: "" });
   }
 
   render() {
