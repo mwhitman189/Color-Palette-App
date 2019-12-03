@@ -1,13 +1,18 @@
 import sizes from "./sizes";
+import svg from "./background.svg";
 
 export default {
   root: {
+    backgroundColor: "#ffffff",
+    backgroundImage: `url(${svg})`,
+    /* background by SVGBackgrounds.com */
     position: "relative",
     minHeight: "100%",
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "center",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    overflow: "scroll"
   },
   container: {
     width: "65%",
@@ -25,16 +30,13 @@ export default {
       width: "85%"
     }
   },
-  blueBackground: {
-    backgroundColor: "blue"
-  },
   nav: {
     display: "flex",
     width: "100%",
     justifyContent: "space-between",
     alignItems: "center",
     margin: "1em 0 1em",
-    color: "white",
+    color: "#2f89ca",
     "& h1": {
       margin: "0"
     }
@@ -43,8 +45,8 @@ export default {
     boxSizing: "border-box",
     width: "100%",
     display: "grid",
-    gridTemplateColumns: "repeat(3, 30%)",
-    gridGap: "1.5rem",
+    gridTemplateColumns: "repeat(3, 32%)",
+    gridGap: "1rem",
     [sizes.down("sm")]: {
       gridTemplateColumns: "repeat(2, 50%)"
     },
@@ -54,7 +56,7 @@ export default {
   },
   link: {
     fontWeight: "800",
-    color: "#fff",
+    color: "#2f89ca",
     textDecoration: "none",
     textTransform: "uppercase",
     "&:hover": {

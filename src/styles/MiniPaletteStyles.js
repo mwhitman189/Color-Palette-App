@@ -4,7 +4,7 @@ export default {
   root: {
     backgroundColor: "white",
     borderRadius: "5px",
-    padding: "0.4rem",
+    padding: "0.4rem 0.4rem 2rem 0.4rem",
     position: "relative",
     overflow: "hidden",
     cursor: "pointer",
@@ -16,7 +16,7 @@ export default {
   },
   colors: {
     backgroundColor: "#dae1e4",
-    height: "80%",
+    height: "100%",
     width: "100%",
     borderRadius: "5px",
     overflow: "hidden"
@@ -49,7 +49,6 @@ export default {
     position: "relative",
     marginBottom: "-5px"
   },
-  delete: {},
   deleteIcon: {
     color: "#fff",
     backgroundColor: "#e03b30",

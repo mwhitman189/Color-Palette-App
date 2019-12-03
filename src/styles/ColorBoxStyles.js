@@ -99,7 +99,7 @@ export default {
   },
   copyMsg: {
     color: props =>
-      chroma(props.background).luminance() > 0.3 ? "#353b48" : "#eeeeee",
+      chroma(props.background).luminance() > 0.6 ? "#353b48" : "#eeeeee",
     position: "fixed",
     left: 0,
     right: 0,
