@@ -39,9 +39,7 @@ class App extends Component {
     );
   }
 
-  deletePalette(e, id) {
-    e.stopPropagation();
-
+  deletePalette(id) {
     this.setState(
       {
         palettes: [...this.state.palettes.filter(palette => palette.id !== id)]
