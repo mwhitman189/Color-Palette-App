@@ -74,7 +74,7 @@ export default function FormDialog(props) {
           <DialogContentText>
             What would you like to name your palette?
           </DialogContentText>
-          <ValidatorForm onSubmit={showEmojiStage}>
+          <ValidatorForm onSubmit={showEmojiStage} instantValidate={false}>
             <TextValidator
               autoFocus
               fullWidth

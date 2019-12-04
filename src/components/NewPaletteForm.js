@@ -18,8 +18,6 @@ export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const { savePalette, history, paletteList } = props;
-
   const [state, setState] = useState({
     open: false,
     colors: [
@@ -28,6 +26,8 @@ export default function PersistentDrawerLeft(props) {
       { color: "#EF2C60", name: "Red" }
     ]
   });
+  const { savePalette, history, paletteList } = props;
+  const { open, colors } = state;
 
   const handleDrawerOpen = () => {
     setState({ ...state, open: true });
@@ -98,7 +98,7 @@ export default function PersistentDrawerLeft(props) {
   return (
     <div className={classes.root}>
       <PaletteFormNav
-        open={state.open}
+        open={open}
         paletteList={paletteList}
         handleSubmit={handleSubmit}
         handleDrawerOpen={handleDrawerOpen}
@@ -107,7 +107,7 @@ export default function PersistentDrawerLeft(props) {
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={state.open}
+        open={open}
         classes={{
           paper: classes.drawerPaper
         }}
@@ -140,17 +140,17 @@ export default function PersistentDrawerLeft(props) {
               Random Color
             </Button>
           </div>
-          <ColorPickerForm addColor={addColor} colors={state.colors} />
+          <ColorPickerForm addColor={addColor} colors={colors} />
         </div>
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: state.open
+          [classes.contentShift]: open
         })}
       >
         <div className={classes.drawerHeader} />
         <DraggableColorList
-          colors={state.colors}
+          colors={colors}
           removeColor={removeColor}
           axis={"xy"}
           onSortEnd={onSortEnd}
