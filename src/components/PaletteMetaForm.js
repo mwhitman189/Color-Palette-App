@@ -16,7 +16,7 @@ export default function FormDialog(props) {
   });
 
   useEffect(() => {
-    // Check whether the current value is already in the palettes list
+    // Check whether the current value is already in the palettes list. If so, display error
     ValidatorForm.addValidationRule("isUniquePaletteName", value => {
       return props.paletteList.every(
         ({ paletteName }) => value.toLowerCase() !== paletteName.toLowerCase()
@@ -39,6 +39,11 @@ export default function FormDialog(props) {
       emoji: emoji.native
     };
     props.handleSubmit(newPalette);
+    // Set form stage to empty string to remove the emoji picker dialog on button click
+    setState({
+      ...state,
+      stage: ""
+    });
   };
 
   const handleChange = evt => {
