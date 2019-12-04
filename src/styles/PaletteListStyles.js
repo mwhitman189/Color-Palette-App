@@ -20,8 +20,7 @@ export default {
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "center",
-    boxSizing: "border-box",
-    overflow: "scroll"
+    boxSizing: "border-box"
   },
   container: {
     width: "65%",

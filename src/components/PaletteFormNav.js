@@ -1,16 +1,16 @@
 import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { withRouter } from "react-router-dom";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import { withStyles } from "@material-ui/core/styles";
-import PaletteMetaForm from "./PaletteMetaForm";
-import { Button } from "@material-ui/core";
-import styles from "../styles/PaletteFormNavStyles";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { withRouter } from "react-router-dom";
+import { Button } from "@material-ui/core";
+import PaletteMetaForm from "./PaletteMetaForm";
+import styles from "../styles/PaletteFormNavStyles";
 
 class PaletteFormNav extends Component {
   constructor(props) {

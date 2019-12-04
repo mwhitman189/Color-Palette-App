@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import { withStyles } from "@material-ui/styles";
 import Navbar from "./Navbar";
 import ColorBox from "./ColorBox";
 import Footer from "./Footer";
-import { withStyles } from "@material-ui/styles";
 import styles from "../styles/PaletteStyles";
 
 class SingleHuePalette extends Component {
@@ -32,7 +32,7 @@ class SingleHuePalette extends Component {
 
   render() {
     const { format } = this.state;
-    const { classes, palette } = this.props;
+    const { classes, palette, colorId } = this.props;
     const shadeBoxes = this._shades.map(shade => (
       <ColorBox
         key={shade.name}
@@ -56,7 +56,7 @@ class SingleHuePalette extends Component {
             is_singleHue
           ></ColorBox>
         </div>
-        <Footer paletteName={this.props.colorId} />
+        <Footer paletteName={colorId} />
       </div>
     );
   }

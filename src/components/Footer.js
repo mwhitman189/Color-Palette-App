@@ -1,7 +1,7 @@
 import React from "react";
+import { withStyles } from "@material-ui/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopyright } from "@fortawesome/free-solid-svg-icons";
-import { withStyles } from "@material-ui/styles";
 import styles from "../styles/FooterStyles";
 
 function Footer(props) {

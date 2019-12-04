@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import PaletteFormNav from "./PaletteFormNav";
-import clsx from "clsx";
+import { arrayMove } from "react-sortable-hoc";
 import { useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
@@ -10,13 +9,16 @@ import Button from "@material-ui/core/Button";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import DraggableColorList from "./DraggableColorList";
-import { arrayMove } from "react-sortable-hoc";
+import PaletteFormNav from "./PaletteFormNav";
 import ColorPickerForm from "./ColorPickerForm";
+import clsx from "clsx";
 import useStyles from "../styles/NewPaletteFormStyles";
 
 export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
+
+  const { savePalette, history, paletteList } = props;
 
   const [state, setState] = useState({
     open: false,
@@ -56,8 +58,8 @@ export default function PersistentDrawerLeft(props) {
     newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-");
     newPalette.colors = state.colors;
 
-    props.savePalette(newPalette);
-    props.history.push("/");
+    savePalette(newPalette);
+    history.push("/");
   };
 
   // Resort colors array in state for use with react-sortable-hoc
@@ -83,9 +85,9 @@ export default function PersistentDrawerLeft(props) {
   };
 
   const getRandomColor = () => {
-    let paletteList = props.paletteList.map(p => p.colors).flat();
-    let randIdx = Math.floor(Math.random() * paletteList.length);
-    let randColor = paletteList[randIdx];
+    let palettes = paletteList.map(p => p.colors).flat();
+    let randIdx = Math.floor(Math.random() * palettes.length);
+    let randColor = palettes[randIdx];
 
     setState({
       ...state,
@@ -97,7 +99,7 @@ export default function PersistentDrawerLeft(props) {
     <div className={classes.root}>
       <PaletteFormNav
         open={state.open}
-        paletteList={props.paletteList}
+        paletteList={paletteList}
         handleSubmit={handleSubmit}
         handleDrawerOpen={handleDrawerOpen}
       />

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import Button from "@material-ui/core/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
+import "emoji-mart/css/emoji-mart.css";
 
 export default function FormDialog(props) {
   const [state, setState] = React.useState({
@@ -15,17 +15,20 @@ export default function FormDialog(props) {
     paletteName: ""
   });
 
+  const { hideForm, handleSubmit, paletteList } = props;
+  const { paletteName, stage } = state;
+
   useEffect(() => {
     // Check whether the current value is already in the palettes list. If so, display error
     ValidatorForm.addValidationRule("isUniquePaletteName", value => {
-      return props.paletteList.every(
+      return paletteList.every(
         ({ paletteName }) => value.toLowerCase() !== paletteName.toLowerCase()
       );
     });
   });
 
   const showEmojiStage = () => {
-    if (state.paletteName !== "") {
+    if (paletteName !== "") {
       setState({
         ...state,
         stage: "emoji"
@@ -35,10 +38,10 @@ export default function FormDialog(props) {
 
   const savePalette = emoji => {
     let newPalette = {
-      paletteName: state.paletteName,
+      paletteName: paletteName,
       emoji: emoji.native
     };
-    props.handleSubmit(newPalette);
+    handleSubmit(newPalette);
     // Set form stage to empty string to remove the emoji picker dialog on button click
     setState({
       ...state,
@@ -55,15 +58,15 @@ export default function FormDialog(props) {
 
   return (
     <div>
-      <Dialog open={state.stage === "emoji"} onClose={props.hideForm}>
+      <Dialog open={stage === "emoji"} onClose={hideForm}>
         <DialogTitle id="emoji-dialog-title">
           Select A Palette Emoji
         </DialogTitle>
         <Picker title="Select an emoji" onSelect={savePalette} />
       </Dialog>
       <Dialog
-        open={state.stage === "name"}
-        onClose={props.hideForm}
+        open={stage === "name"}
+        onClose={hideForm}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Save Palette</DialogTitle>
@@ -77,7 +80,7 @@ export default function FormDialog(props) {
               fullWidth
               margin="dense"
               label="Palette Name"
-              value={state.paletteName}
+              value={paletteName}
               name="paletteName"
               onChange={handleChange}
               validators={["required", "isUniquePaletteName"]}
@@ -87,7 +90,7 @@ export default function FormDialog(props) {
               ]}
             />
             <DialogActions>
-              <Button onClick={props.hideForm} color="primary">
+              <Button onClick={hideForm} color="primary">
                 Cancel
               </Button>
               <Button type="submit" color="primary" onClick={showEmojiStage}>
